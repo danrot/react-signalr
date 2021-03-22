@@ -1,8 +1,9 @@
+using react_signalr.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace react_signalr
 {
@@ -10,6 +11,9 @@ namespace react_signalr
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+            services.AddSingleton<Random>();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "Client/dist";
@@ -28,6 +32,7 @@ namespace react_signalr
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<RandomHub>("/RandomHub");
             });
 
             app.UseSpa(spa =>
