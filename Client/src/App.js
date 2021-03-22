@@ -1,30 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {HubConnectionBuilder} from '@microsoft/signalr';
+import RandomNumberDisplay from './RandomNumberDisplay';
+import UpdateButton from './UpdateButton';
 
 const connection = new HubConnectionBuilder().withUrl('/RandomHub').build()
 connection.start();
 
 export default function App() {
-    const [randomNumber, setRandomNumber] = useState();
+    const [showRandomNumber, setShowRandomNumber] = useState(true);
 
-    useEffect(function() {
-        connection.on('ReceiveNumber', function(number) {
-            setRandomNumber(number);
-        });
-
-        return function() {
-            connection.off('ReceiveNumber');
-        }
-    }, []);
-
-    function handleClick() {
-        connection.invoke('GenerateNumber');
+    function handleRandomNumberToggle() {
+        setShowRandomNumber((showRandomNumber) => !showRandomNumber);
     }
 
     return (
         <>
-            <p>Random number: {randomNumber}</p>
-            <button onClick={handleClick}>Update random number</button>
+            {showRandomNumber && <RandomNumberDisplay connection={connection} />}
+            <UpdateButton connection={connection} />
+            <button onClick={handleRandomNumberToggle}>Toggle random number</button>
         </>
     );
 }
