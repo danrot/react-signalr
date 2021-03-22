@@ -1,2 +1,5 @@
 bin/
 obj/
+dist/
+node_modules/
+.parcel-cache/
