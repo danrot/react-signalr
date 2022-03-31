@@ -1,26 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using react_signalr.Hubs;
 
-namespace react_signalr
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSpaStaticFiles(configuration =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+	configuration.RootPath = "Client/dist";
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
-}
+builder.Services.AddSignalR();
+builder.Services.AddSingleton<Random>();
+
+var app = builder.Build();
+
+app.UseSpaStaticFiles();
+app.MapHub<RandomHub>("/RandomHub");
+
+app.Run();

@@ -1,20 +1,19 @@
-using System;
+namespace react_signalr.Hubs;
+
 using Microsoft.AspNetCore.SignalR;
+using System;
 
-namespace react_signalr.Hubs
+public class RandomHub : Hub
 {
-    public class RandomHub : Hub
-    {
-        private Random Random { get; }
+	private Random Random { get; }
 
-        public RandomHub(Random random)
-        {
-            Random = random;
-        }
+	public RandomHub(Random random)
+	{
+		Random = random;
+	}
 
-        public void GenerateNumber()
-        {
-            Clients.All.SendAsync("ReceiveNumber", Random.Next(0, 100));
-        }
-    }
+	public void GenerateNumber()
+	{
+		Clients.All.SendAsync("ReceiveNumber", Random.Next(0, 100));
+	}
 }
