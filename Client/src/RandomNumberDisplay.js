@@ -5,7 +5,6 @@ export default function RandomNumberDisplay({connection}) {
 
     useEffect(function() {
         const handleReceiveNumber = function(number) {
-            console.log('Called!');
             setRandomNumber(number);
         };
 

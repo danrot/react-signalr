@@ -1,13 +1,13 @@
 {
-    "scripts": {
-        "watch": "parcel index.html"
-    },
-    "devDependencies": {
-        "parcel": "^2.0.0-beta.2"
-    },
-    "dependencies": {
-        "@microsoft/signalr": "^5.0.4",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1"
-    }
+	"source": "index.html",
+	"scripts": {
+		"watch": "parcel watch"
+	},
+	"devDependencies": {
+		"@microsoft/signalr": "^6.0.3",
+		"parcel": "^2.4.0",
+		"process": "^0.11.10",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0"
+	}
 }
